@@ -14,6 +14,11 @@ public class MainFrame extends javax.swing.JFrame {
         setLookAndFeel();
         initComponents();
         matrix = new Matrix(0, 0);
+        valueSlider.setMajorTickSpacing(valueSlider.getMaximum()/4);
+        valueSlider.setMinorTickSpacing(10);
+        valueSlider.setPaintTicks(true);
+        valueSlider.setPaintLabels(true);
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -235,10 +240,14 @@ public class MainFrame extends javax.swing.JFrame {
     private void updateSlider() {
         valueSlider.setMaximum(Integer.parseInt(maxValueTextField.getText()));
         valueSlider.setMinimum(Integer.parseInt(minValueTextField.getText()));
+        valueSlider.setValue((Integer.parseInt(maxValueTextField.getText()) +
+                Integer.parseInt(minValueTextField.getText())) / 2);
+        valueSlider.setMajorTickSpacing((valueSlider.getMaximum()+ valueSlider.getMinimum()) /4);
+        
     }
 
     private void checkTextFieldMax(KeyEvent evt) {
-        Pattern pattern = Pattern.compile("^[-+]?[1-9]\\d*\\.?[0]*$");
+        Pattern pattern = Pattern.compile("^[-+]?[0-9]\\d*\\.?[0]*$");
         Matcher maxMatcher = pattern.matcher(maxValueTextField.getText());
         if (isTextFieldEmpty() || !maxMatcher.find() || isMinHigherThanMax()) {
             evt.consume();  // ignore event
@@ -246,7 +255,7 @@ public class MainFrame extends javax.swing.JFrame {
     }
 
     private void checkTextFieldMin(KeyEvent evt) {
-        Pattern pattern = Pattern.compile("^[-+]?[1-9]\\d*\\.?[0]*$");
+        Pattern pattern = Pattern.compile("^[-+]?[0-9]\\d*\\.?[0]*$");
         Matcher minMatcher = pattern.matcher(minValueTextField.getText());
         if (isTextFieldEmpty() || !minMatcher.find() || isMinHigherThanMax()) {
             evt.consume();  // ignore event
