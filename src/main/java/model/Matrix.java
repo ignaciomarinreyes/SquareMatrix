@@ -32,16 +32,18 @@ public class Matrix {
         fillMatrix();
     }
 
-    public String getValues(int max) {
-        String result = "";
+    public String getValues(int value) {
+        String result = "\n\n";
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
-                if (matrix[i][j] > max) {
+                if (matrix[i][j] <= value) {
                     result += "-";
                 } else {
                     result += "" + matrix[i][j];
                 }
-                result += " ";
+                if (j<width -1) {
+                    result += "\t";
+                }
             }
             result += "\n";
         }
