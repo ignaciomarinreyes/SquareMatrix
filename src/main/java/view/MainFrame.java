@@ -6,6 +6,7 @@ import model.Matrix;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.swing.JOptionPane;
 
 public class MainFrame extends javax.swing.JFrame {
 
@@ -80,7 +81,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(valueSlider, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE))
+                        .addComponent(valueSlider, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(22, 22, 22)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -88,8 +89,8 @@ public class MainFrame extends javax.swing.JFrame {
                             .addComponent(minValueLabel))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(maxValueTextField)
-                            .addComponent(minValueTextField))))
+                            .addComponent(maxValueTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(minValueTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -149,13 +150,15 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 7, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel1)
-                            .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(11, 11, 11)))
+                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(11, 11, 11))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(22, 22, 22)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -262,15 +265,23 @@ public class MainFrame extends javax.swing.JFrame {
     private void checkTextFieldMax(KeyEvent evt) {
         Pattern pattern = Pattern.compile("^[-+]?[0-9]\\d*\\.?[0]*$");
         Matcher maxMatcher = pattern.matcher(maxValueTextField.getText());
-        if (isTextFieldEmpty() || !maxMatcher.find() || isMinHigherThanMax()) {
+        if (maxValueTextField.getText().length() > 6){
+            JOptionPane.showMessageDialog(null, "Max number of digit reached");
+        }else if (isTextFieldEmpty() || !maxMatcher.find() || isMinHigherThanMax() ||
+                maxValueTextField.getText().length() > 6) {
             evt.consume();  // ignore event
         }
+
     }
 
     private void checkTextFieldMin(KeyEvent evt) {
         Pattern pattern = Pattern.compile("^[-+]?[0-9]\\d*\\.?[0]*$");
         Matcher minMatcher = pattern.matcher(minValueTextField.getText());
-        if (isTextFieldEmpty() || !minMatcher.find() || isMinHigherThanMax()) {
+        if (minValueTextField.getText().length() > 6){
+            JOptionPane.showMessageDialog(null, "Max number of digit reached");
+        }
+        else if (isTextFieldEmpty() || !minMatcher.find() || isMinHigherThanMax() || 
+                minValueTextField.getText().length() > 6){
             evt.consume();  // ignore event
         }
     }
