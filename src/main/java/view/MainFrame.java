@@ -1,9 +1,7 @@
 package view;
 
 import java.awt.event.KeyEvent;
-import java.io.IOException;
 import model.Matrix;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
@@ -18,11 +16,11 @@ public class MainFrame extends javax.swing.JFrame {
         setResizable(false);
         setLocationRelativeTo(null);
         matrix = new Matrix(0, 0);
-        valueSlider.setMajorTickSpacing(valueSlider.getMaximum()/4);
-        valueSlider.setMinorTickSpacing(valueSlider.getMaximum() /100);
+        valueSlider.setMajorTickSpacing(valueSlider.getMaximum() / 4);
+        valueSlider.setMinorTickSpacing(valueSlider.getMaximum() / 100);
         valueSlider.setPaintTicks(true);
         valueSlider.setPaintLabels(true);
-        
+
     }
 
     @SuppressWarnings("unchecked")
@@ -201,7 +199,6 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void valueSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_valueSliderStateChanged
         showMatrix();
-        System.out.println(valueSlider.getValue());
     }//GEN-LAST:event_valueSliderStateChanged
 
     private void setLookAndFeel() {
@@ -245,31 +242,31 @@ public class MainFrame extends javax.swing.JFrame {
     private void updateSlider() {
         valueSlider.setMaximum(Integer.parseInt(maxValueTextField.getText()));
         valueSlider.setMinimum(Integer.parseInt(minValueTextField.getText()));
-        valueSlider.setValue((Integer.parseInt(maxValueTextField.getText()) +
-                Integer.parseInt(minValueTextField.getText())) / 2);
+        valueSlider.setValue((Integer.parseInt(maxValueTextField.getText())
+                + Integer.parseInt(minValueTextField.getText())) / 2);
 
-        valueSlider.setMajorTickSpacing((valueSlider.getMaximum()- valueSlider.getMinimum()) /4);
-        System.out.println((valueSlider.getMaximum()- valueSlider.getMinimum()) /4);
-        valueSlider.setMinorTickSpacing((valueSlider.getMaximum()- valueSlider.getMinimum()) /100);
-        
-        try{
+        valueSlider.setMajorTickSpacing((valueSlider.getMaximum() - valueSlider.getMinimum()) / 4);
+        System.out.println((valueSlider.getMaximum() - valueSlider.getMinimum()) / 4);
+        valueSlider.setMinorTickSpacing((valueSlider.getMaximum() - valueSlider.getMinimum()) / 100);
+
+        try {
             valueSlider.setLabelTable(valueSlider.createStandardLabels(
-                (valueSlider.getMaximum()- valueSlider.getMinimum())/4,valueSlider.getMinimum()));
-            
-        }catch(IllegalArgumentException e){
-            
+                    (valueSlider.getMaximum() - valueSlider.getMinimum()) / 4, valueSlider.getMinimum()));
+
+        } catch (IllegalArgumentException e) {
+
         }
-        
+
     }
 
     private void checkTextFieldMax(KeyEvent evt) {
         Pattern pattern = Pattern.compile("^[-+]?[0-9]\\d*\\.?[0]*$");
         Matcher maxMatcher = pattern.matcher(maxValueTextField.getText());
-        if (maxValueTextField.getText().length() > 6){
+        if (maxValueTextField.getText().length() > 6) {
             JOptionPane.showMessageDialog(null, "Max number of digit reached");
-        }else if (isTextFieldEmpty() || !maxMatcher.find() || isMinHigherThanMax() ||
-                maxValueTextField.getText().length() > 6) {
-            evt.consume();  // ignore event
+        } else if (isTextFieldEmpty() || !maxMatcher.find() || isMinHigherThanMax()
+                || maxValueTextField.getText().length() > 6) {
+            evt.consume();
         }
 
     }
@@ -277,14 +274,14 @@ public class MainFrame extends javax.swing.JFrame {
     private void checkTextFieldMin(KeyEvent evt) {
         Pattern pattern = Pattern.compile("^[-+]?[0-9]\\d*\\.?[0]*$");
         Matcher minMatcher = pattern.matcher(minValueTextField.getText());
-        if (minValueTextField.getText().length() > 6){
+        if (minValueTextField.getText().length() > 6) {
             JOptionPane.showMessageDialog(null, "Max number of digit reached");
-        }
-        else if (isTextFieldEmpty() || !minMatcher.find() || isMinHigherThanMax() || 
-                minValueTextField.getText().length() > 6){
+        } else if (isTextFieldEmpty() || !minMatcher.find() || isMinHigherThanMax()
+                || minValueTextField.getText().length() > 6) {
             evt.consume();  // ignore event
         }
     }
+
     private boolean isTextFieldEmpty() {
 
         return (maxValueTextField.getText().isEmpty()

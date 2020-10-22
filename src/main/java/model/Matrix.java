@@ -41,7 +41,7 @@ public class Matrix {
                 } else {
                     result += "" + matrix[i][j];
                 }
-                if (j<width -1) {
+                if (j < width - 1) {
                     result += "\t";
                 }
             }
